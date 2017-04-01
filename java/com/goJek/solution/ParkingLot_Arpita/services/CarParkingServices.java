@@ -19,13 +19,12 @@ public class CarParkingServices extends ParkingLotServices {
 	 * @see com.goJek.solution.ParkingLot_Arpita.services.IParkingLotServices#park(java.lang.String, java.lang.String)
 	 */
 	public int park(String registrationNumber, String color) {
-		
-		if (parkingLotSize > 0 && (parkingLot.size() == 0 || parkingLot.size() < parkingLotSize)) {
+		if (status().size() > 0) {
 			Vehicle car = new DBCar(registrationNumber, color);
-			int slot = freeSpace.first();
-			parkingLot.put(slot, car);
-			freeSpace.remove(slot);
-			return slot;
+			if (parkingLot.keySet().size() < status().size()) {
+				parkingLot.put(freeSpace.first(), car);
+				freeSpace.remove(freeSpace.first());
+			}
 		}
 		return 0;
 	}
