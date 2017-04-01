@@ -5,6 +5,7 @@ package com.goJek.solution.ParkingLot_Arpita.services;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -38,6 +39,11 @@ public abstract class ParkingLotServices implements IParkingLotServices {
 	}
 
 	public int slot_number_for_registration_number(String registrationNumber) {
+		for (Entry<Integer, Vehicle> entry : parkingLot.entrySet()) {
+			if (entry.getValue().getRegistrationNumber().equals(registrationNumber)) {
+				return entry.getKey();
+			}
+		}
 		return 0;
 	}
 }

@@ -22,14 +22,21 @@ public class TestParkingLotServices {
 	
 	@Test
 	public void test_create_ParkingLot(int size){
-		services.create_parking_lot(5);
-		assertEquals(services.status().size(), 5);
+		services.create_parking_lot(2);
+		assertEquals(services.status().size(), 2);
 	}
 	
 	@Test
 	public void test_park(){
 		int park = services.park("KA-01-HH-1234", "WHITE");
 		assertEquals(1, park);
+	}
+	
+	@Test
+	public void test_full_park(){
+		services.park("KA-01-HH-3344", "RED");
+		int park = services.park("KA-01-HH-8899", "Blue");
+		assertEquals(0, park);
 	}
 	
 	@Test
@@ -46,7 +53,6 @@ public class TestParkingLotServices {
 	
 	@Test
 	public void test_registration_numbers_for_cars_with_colour(){
-		services.park("KA-01-HH-3344", "RED");
 		List<String> regNumber = services.registration_numbers_for_cars_with_colour("RED");
 		assertEquals(Collections.singletonList("KA-01-HH-3344"), regNumber);
 	}
