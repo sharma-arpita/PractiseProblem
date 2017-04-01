@@ -21,7 +21,7 @@ public abstract class ParkingLotServices implements IParkingLotServices {
 	SortedSet<Integer> freeSpace = new TreeSet<Integer>();
 
 	public void create_parking_lot(int size) {
-		parkingLot = new HashMap<Integer, Vehicle>();
+		parkingLot = new HashMap<Integer, Vehicle>(size);
 		parkingLotSize = size;
 		for (int i = 1; i <= size; i++) {
 			freeSpace.add(i);
