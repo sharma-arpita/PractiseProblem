@@ -19,8 +19,7 @@ public class CarParkingServices extends ParkingLotServices {
 	 * @see com.goJek.solution.ParkingLot_Arpita.services.IParkingLotServices#park(java.lang.String, java.lang.String)
 	 */
 	public int park(String registrationNumber, String color) {
-		
-		if (parkingLotSize > 0 && (parkingLot.size() == 0 || parkingLot.size() < parkingLotSize)) {
+		if (parkingLot != null && parkingLotSize > 0 && (parkingLot.size() == 0 || parkingLot.size() < parkingLotSize)) {
 			Vehicle car = new DBCar(registrationNumber, color);
 			int slot = freeSpace.first();
 			parkingLot.put(slot, car);
@@ -35,13 +34,15 @@ public class CarParkingServices extends ParkingLotServices {
 	 */
 	public List<String> registration_numbers_for_cars_with_colour(String color) {
 		List<String> registrationNumber = new ArrayList<>();
-		parkingLot.values().forEach(car -> {
-			if (car instanceof DBCar) {
-				if (((DBCar) car).getColor().equals(color)) {
-					registrationNumber.add(car.getRegistrationNumber());
+		if(parkingLot != null){
+			parkingLot.values().forEach(car -> {
+				if (car instanceof DBCar) {
+					if (((DBCar) car).getColor().equals(color)) {
+						registrationNumber.add(car.getRegistrationNumber());
+					}
 				}
-			}
-		});
+			});
+		}
 		return registrationNumber;
 	}
 
@@ -50,13 +51,15 @@ public class CarParkingServices extends ParkingLotServices {
 	 */
 	public List<Integer> slot_numbers_for_cars_with_colour(String color) {
 		List<Integer> slotNumber = new ArrayList<>();
-		parkingLot.entrySet().forEach(entry -> {
-			if (entry.getValue() instanceof DBCar) {
-				if (((DBCar) entry.getValue()).getColor().equals(color)) {
-					slotNumber.add(entry.getKey());
+		if(parkingLot != null){
+			parkingLot.entrySet().forEach(entry -> {
+				if (entry.getValue() instanceof DBCar) {
+					if (((DBCar) entry.getValue()).getColor().equals(color)) {
+						slotNumber.add(entry.getKey());
+					}
 				}
-			}
-		});
+			});
+		}
 		return slotNumber;
 	}
 

@@ -30,8 +30,12 @@ public abstract class ParkingLotServices implements IParkingLotServices {
 	}
 
 	public void leave(int slot) {
-		parkingLot.remove(slot);
-		freeSpace.add(slot);
+		if(parkingLot != null && parkingLot.containsKey(slot)){
+			parkingLot.remove(slot);
+			freeSpace.add(slot);
+		} else {
+			System.out.println("No vehicle parked at slot " +slot);
+		}
 	}
 
 	public Map<Integer, Vehicle> status() {

@@ -29,9 +29,19 @@ public abstract class ParkingLotServices implements IParkingLotServices {
 		}
 	}
 
-	public void leave(int slot) {
-		parkingLot.remove(slot);
-		freeSpace.add(slot);
+	public boolean leave(int slot) {
+		if(parkingLot != null && parkingLot.containsKey(slot)){
+			parkingLot.remove(slot);
+			freeSpace.add(slot);
+			return true;
+		} else {
+			if(slot > parkingLotSize){
+				System.out.println("No slot allocated with slot Number " +slot);
+			} else {
+				System.out.println("No vehicle parked at slot " +slot);
+			}
+			return false;
+		}
 	}
 
 	public Map<Integer, Vehicle> status() {
@@ -39,9 +49,11 @@ public abstract class ParkingLotServices implements IParkingLotServices {
 	}
 
 	public int slot_number_for_registration_number(String registrationNumber) {
-		for (Entry<Integer, Vehicle> entry : parkingLot.entrySet()) {
-			if (entry.getValue().getRegistrationNumber().equals(registrationNumber)) {
-				return entry.getKey();
+		if(parkingLot != null){
+			for (Entry<Integer, Vehicle> entry : parkingLot.entrySet()) {
+				if (entry.getValue().getRegistrationNumber().equals(registrationNumber)) {
+					return entry.getKey();
+				}
 			}
 		}
 		return 0;

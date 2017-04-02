@@ -18,7 +18,7 @@ public interface IParkingLotServices {
 
 	public int park(String registrationNumber, String color);
 
-	public void leave(int slot);
+	public boolean leave(int slot);
 
 	public Map<Integer, Vehicle> status();
 
